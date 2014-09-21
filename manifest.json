@@ -1,0 +1,10 @@
+{
+  "name": "The Front-End New Tab",
+  "version": "0.2",
+  "description": "The daily tools that you use as a front-end developer as your new tab on your chrome extension",
+  "chrome_url_overrides" : {
+    "newtab": "tab.html"
+  },
+  "minimum_chrome_version": "14.0.835.202",
+  "manifest_version": 2
+}

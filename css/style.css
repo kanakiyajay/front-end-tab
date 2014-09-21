@@ -1,0 +1,79 @@
+.json_input {
+	width: 100%;
+	height: 300px;
+	margin: 0;
+	font-size: 13px;
+	font-family: monospace;
+	line-height: normal;
+	text-align: start;
+	word-spacing: 0px;
+	white-space: pre;
+	word-wrap: normal;
+	text-indent: 0px;
+	background-color: #EEEEEE;
+	border: 1px solid #EEEEEE;
+	padding: 0 !important;
+}
+
+.json_input:focus {
+	border-color: transparent;
+	outline: none;
+	background-color: #EEEEEE;
+}
+
+.linedwrap {
+	margin-bottom: 10px;
+	background-color: #EEEEEE;
+	padding: 0;
+}
+
+.linedwrap .codelines {
+	padding: 0;
+}
+
+.light {
+	color: #AAA;
+}
+
+.error,.notice,.success {
+	margin-bottom:1em;
+	border:2px solid #ddd;
+	padding:.8em;
+}
+
+.error {
+	background:#FBE3E4;
+	color:#D12F19;
+	border-color:#FBC2C4;
+}
+
+.notice {
+	background:#FFF6BF;
+	color:#817134;
+	border-color:#FFD324;
+}
+
+.success {
+	background:#E6EFC2;
+	color:#529214;
+	border-color:#C6D880;
+}
+
+.m-t {
+	margin-top: 10px;
+}
+
+.m-2t {
+	margin-top: 20px;
+}
+
+#results {
+	display: none;
+}
+
+.footer {
+	bottom: 0;
+	position: fixed;
+	opacity: 0.8;
+	margin-bottom: 10px;
+}
