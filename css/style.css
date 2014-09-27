@@ -67,8 +67,14 @@
 	margin-top: 20px;
 }
 
-#results {
+#results, #render-wrapper {
 	display: none;
+}
+
+#preview {
+	width: 100%;
+	height: 100%;
+	border: 1px solid #eee;
 }
 
 .footer {
@@ -77,4 +83,14 @@
 	opacity: 0.8;
 	margin-bottom: 10px;
 	background-color: white;
+}
+
+.CodeMirror {
+	border: 1px solid #eee;
+	height: auto;
+}
+
+.CodeMirror-scroll {
+	overflow-y: hidden;
+	overflow-x: auto;
 }

@@ -161,15 +161,15 @@ jsl.interactions = (function () {
                 if (lineEnd < 0) {
                     lineEnd = jsonVal.length;
                 }
-
                 $json.focus().caret(lineStart, lineEnd);
             }
-
             $results.show().text(parseException.message);
-
             $results.removeClass('success').addClass('error');
-            $('div.linedwrap').removeClass('greenBorder').addClass('redBorder');
         }
+        window.cm = CodeMirror.fromTextArea(document.getElementById("beautify"), {
+            mode: "text/javascript",
+            lineNumbers: true
+        });
     }
 
     /**
@@ -184,24 +184,14 @@ jsl.interactions = (function () {
         jsonParam     = getURLParameter('json'),
         $json = $("#beautify");
 
-        if (compress) {
-            $('#headerText').html('JSONLint<span class="light">Compressor</span>');
-        }
-
-        if (!reformat) {
-            $('#headerText').html('JSONLint<span class="light">Lite</span>');
-        }
-
         $('#validate').click(function () {
+            hide();
+            cm.save();
+            cm.toTextArea();
             var jsonVal = $.trim($json.val());
             validate();
             return false;
         });
-
-        $json.keyup(function () {
-            $('div.linedwrap').removeClass('greenBorder').removeClass('redBorder');
-        });
-
     }
 
     return {
