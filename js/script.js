@@ -2,29 +2,51 @@ $(document).ready(function () {
 
 	window.$textarea = $("#beautify");
 	window.$results = $("#results");
+	window.loaded = {};
+
+	var executeAfter = function ($btn, callback) {
+		var path = $btn.attr("data-require");
+		if (path && path.length && !window.loaded[path]) {
+			$.getScript("js/" + path).done(function () {
+				console.log("Script Loaded success: " + "js/" + path);
+				window.loaded[path] = true;
+				callback();
+			}).fail(function (jq) {
+				alert("Script was not loaded because" + jq);
+			});
+		} else {
+			callback();
+		}
+	}
 
 	$("#btn-beautify").on("click", function () {
 		hide();
 		var js = cm.getValue();
 		if(!js.length)	return false;
-		cm.setOption("mode", "text/javascript");
-		cm.setValue(js_beautify(js));
+		executeAfter($(this), function () {
+			cm.setOption("mode", "text/javascript");
+			cm.setValue(js_beautify(js));
+		});
 	});
 
 	$("#btn-html").on("click", function () {
 		hide();
 		var html = cm.getValue();
 		if(!html.length)	return false;
-		cm.setOption("mode", "text/html");
-		cm.setValue(style_html(html));
+		executeAfter($(this), function () {
+			cm.setOption("mode", "text/html");
+			cm.setValue(style_html(html));
+		});
 	});
 
 	$("#btn-css").on("click", function () {
 		hide();
 		var css = cm.getValue();
 		if(!css.length)	 return false;
+		executeAfter($(this), function () {
 			cm.setOption("mode", "text/css");
 			cm.setValue(css_beautify(css));
+		});
 	});
 
 	$("#decode").on("click", function () {
@@ -42,25 +64,28 @@ $(document).ready(function () {
 	$("#jshint").on("click", function () {
 		hide();
 		var js = cm.getValue();
-		var status = JSHINT(js);
-		if (status) {
-			$results.addClass("success").show().html("No Jshint errors")
-			return false;
-		} else {
-			var html = JSHINT.errors.length + " Warnings\n\n";
-			for (var i = 0; i < JSHINT.errors.length; i++) {
-				var error = JSHINT.errors[i];
-				html += "Line " + error.line + ", char " + error.character + " : " + error.reason + "\n";
-			};
-			if (JSHINT.undefs.length) {
-				html += JSHINT.undefs.length + " Undefined\n";
-				for (var i = 0; i < JSHINT.undefs.length; i++) {
-					var undef = JSHINT.undefs[i];
-					html += "var " + undef[3] + " is undefined at Line " + undef[2].line + ", character " + undef[2].character + "\n";
+		if (!js.length) return false;
+		executeAfter($(this), function () {
+			var status = JSHINT(js);
+			if (status) {
+				$results.addClass("success").show().html("No Jshint errors")
+				return false;
+			} else {
+				var html = JSHINT.errors.length + " Warnings\n\n";
+				for (var i = 0; i < JSHINT.errors.length; i++) {
+					var error = JSHINT.errors[i];
+					html += "Line " + error.line + ", char " + error.character + " : " + error.reason + "\n";
 				};
+				if (JSHINT.undefs.length) {
+					html += JSHINT.undefs.length + " Undefined\n";
+					for (var i = 0; i < JSHINT.undefs.length; i++) {
+						var undef = JSHINT.undefs[i];
+						html += "var " + undef[3] + " is undefined at Line " + undef[2].line + ", character " + undef[2].character + "\n";
+					};
+				}
+				$results.addClass("error").show().html(html);
 			}
-			$results.addClass("error").show().html(html);
-		}
+		});
 	});
 
 	$("#whitespace").on("click", function () {
@@ -74,7 +99,9 @@ $(document).ready(function () {
 			cm.setValue(code);
 			return;
 		}
-		cm.setValue(JSON.minify(js));
+		executeAfter($(this), function () {
+			cm.setValue(JSON.minify(js));
+		});
 	});
 
 	$("#reset").on("click", reset);
@@ -87,21 +114,20 @@ $(document).ready(function () {
 
 	$("#rendermd").on("click", function () {
 		hide();
-		showPreview();
-		updateMarkdown();
+		executeAfter($(this), function () {
+			showPreview();
+			updateMarkdown();
+		});
 	});
 
 	initCM();
-	resetCM();
-	initClipboard();
 });
 
 function updateHtml() {
-	var previewFrame = document.getElementById("preview");
-	var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
-	preview.open();
-	preview.write(cm.getValue());
-	preview.close();
+	window.render = "html";
+	window.sidebyside = true;
+	writeToPreview(cm.getValue());
+	setTimeout(updatePreview, 300);
 }
 
 function showPreview() {
@@ -109,18 +135,31 @@ function showPreview() {
 	$("#textarea-wrapper").removeClass("col-xs-10").addClass("col-xs-5");
 }
 
-function updateMarkdown() {
+function updatePreview () {
+	var value = window.render === "html" ? cm.getValue() : marked(cm.getValue());
+	writeToPreview(value);
+}
+
+function writeToPreview (value) {
 	var previewFrame = document.getElementById("preview");
 	var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
 	preview.open();
-	preview.write(marked(cm.getValue()));
+	preview.write(value);
 	preview.close();
 }
 
+function updateMarkdown() {
+	window.render = "md";
+	window.sidebyside = true;
+	writeToPreview(value);
+	setTimeout(updatePreview, 300);
+}
+
 function reset() {
+	window.cm.setValue("");
+	window.sidebyside = false;
 	hide();
 	cm.focus();
-	resetCM();
 }
 
 function hide() {
@@ -130,21 +169,20 @@ function hide() {
 }
 
 function initCM() {
+	window.delay;
+	window.sidebyside = false;
 	window.cm = CodeMirror.fromTextArea(document.getElementById("beautify"), {
 		mode: "text/html",
 		lineNumbers: true,
 		gutter: true,
 		viewportMargin: Infinity
 	});
-}
-
-function resetCM() {
-	var minLines = 10;
-	var startingValue = "";
-	for (var i = 1; i < minLines; i++) {
-		startingValue += "\n";
-	}
-	cm.setValue(startingValue);
+	window.cm.on("change", function() {
+		if (window.sidebyside) {
+			clearTimeout(window.delay);
+			window.delay = setTimeout(updatePreview, 300);
+		}
+	});
 }
 
 /*

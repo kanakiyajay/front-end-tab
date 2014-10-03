@@ -128,7 +128,7 @@ jsl.interactions = (function () {
                     $json.val(JSON.stringify(JSON.parse(jsonVal), null, ""));
                 }
             } else {
-                alert("An unknown error occurred. Please contact Jay Kanakiya.");
+                alert("An unknown error occurred. Please contact @techiejayk.");
             }
         } catch (parseException) {
 
@@ -166,10 +166,7 @@ jsl.interactions = (function () {
             $results.show().text(parseException.message);
             $results.removeClass('success').addClass('error');
         }
-        window.cm = CodeMirror.fromTextArea(document.getElementById("beautify"), {
-            mode: "text/javascript",
-            lineNumbers: true
-        });
+        initCM();
     }
 
     /**
