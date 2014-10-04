@@ -4,6 +4,9 @@ var path = require("path");
 var db = require("./db.js");
 var app = express();
 
+/* For Performance */
+require("http").globalAgent.maxSockets = Infinity;
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -42,6 +45,11 @@ app.use(function (err, req, res, next) {
 });
 
 app.use(express.static("public"));
+
+/* To prevent unknown errors */
+process.on("uncaughtException", function (err) {
+	console.log(err);
+});
 
 app.listen(3000);
 console.log("Listening on 3000");
