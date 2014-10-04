@@ -67,7 +67,7 @@
 	margin-top: 20px;
 }
 
-#results, #render-wrapper , .share{
+#results, #render-wrapper , .share, #sidebar {
 	display: none;
 }
 
@@ -83,7 +83,26 @@
 	position: fixed;
 	opacity: 0.8;
 	margin-bottom: 10px;
-	background-color: white;
+	background-color: rgba(255,255,255,0.5);
+}
+
+#sidebar-wrapper {
+	position: fixed;
+	right: 0;
+	top: 10%;
+	background-color: rgba(255,255,255,0.5);
+}
+
+#sidebar {
+	list-style-type: none;
+	padding: 3px;
+	border-bottom: 1px solid lightgray;
+	clear: both;
+}
+
+#sidebar li {
+	border-top: 1px solid lightgray;
+	padding: 3px;
 }
 
 .CodeMirror {

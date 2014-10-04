@@ -16,23 +16,25 @@
 	<meta name="twitter:domain" content="jaykanakiya.com"/>
 	<meta property='og:title' content='Jay Kanakiya'/>
 	<meta property='og:description' content='Every Tool a web developer and designer needs for daily debugging and practise'/>
-	<!-- Minified css files
 	<link rel="stylesheet" href="css/bootstrap.btn.grid.css">
 	<link rel="stylesheet" href="css/codemirror.css">
 	<link rel="stylesheet" href="css/style.css">
-	-->
+	<!-- Minified css files
 	<link rel="stylesheet" href="css/minified.css">
+	-->
 </head>
 <body>
 	<div class="container-fluid m-2t">
 		<div class="row">
 			<div class="col-xs-1"></div>
 			<div class="col-xs-10 m-t">
-				<div class="btn-toolbar">
+				<div class="btn-toolbar pull-left">
 					<a href="/" title="New QuickBin" class="btn btn-default">New</a>
 					<button class="btn btn-default" id="save">Save</button>
-					<a href="#" target="_blank" class="btn btn-default pull-right share" id="twitter-share">Share on Twitter</a>
-					<a hre="#" target="_blank" class="btn btn-default pull-right share" id="fb-share">Share on Facebook</a>
+				</div>
+				<div class="btn-toolbar share pull-right">
+					<a href="#" target="_blank" class="btn btn-default" id="twitter-share">Share on Twitter</a>
+					<a href="#" target="_blank" class="btn btn-default" id="fb-share">Share on Facebook</a>
 				</div>
 			</div>
 		</div>
@@ -89,6 +91,11 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div id="sidebar-wrapper">
+		<div class="btn btn-default pull-right" id="previous">Previous</div>
+		<ul id="sidebar">
+		</ul>
 	</div>
 	<!-- Minified Files
 	<script src="js/minified.js"></script>

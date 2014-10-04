@@ -124,8 +124,10 @@ $(document).ready(function () {
 	$("#save").on("click", function () {
 		if (window.saveToUpdate) {
 			saveText(cm.getValue());
+			clearTimeout(window.saveDelay);
 		} else {
 			newText(cm.getValue());
+			startSaving();
 		}
 	});
 
@@ -139,9 +141,21 @@ $(document).ready(function () {
 		$(this).attr("href", shareLink);
 	});
 
+	$("#previous").on("click", function () {
+		$("#sidebar").toggle();
+	});
+
+	init();
+});
+
+function init () {
 	initCM();
 	getText();
-});
+	showSaved();
+	setTimeout(function () {
+		$(".share").hide();
+	}, 0);
+}
 
 function getText () {
 	if (window.location.hash.length < 2) return false;
@@ -181,6 +195,7 @@ function saveText (text) {
 		}).done(function (res, status) {
 			if (status === "success") {
 				window.saveToUpdate = true;
+				saveToLocal();
 				$(".share").show();
 			} else {
 				alert(res.error || "Something went wrong");
@@ -201,6 +216,7 @@ function newText (text) {
 		if (status === "success") {
 			changeState("#!/note/" + res._id);
 			$(".share").show();
+			saveToLocal();
 		} else {
 			alert(res.error || "Something went wrong");
 		}
@@ -208,6 +224,7 @@ function newText (text) {
 }
 
 function failAjax (jqXHR, status, err) {
+	console.log(jqXHR, status, err);
 	alert(err || "Something went wrong");
 }
 
@@ -278,9 +295,50 @@ function initCM() {
 			clearTimeout(window.delay);
 			window.delay = setTimeout(updatePreview, 300);
 		}
+		startSaving();
 	});
 }
 
+function startSaving () {
+	if (window.saveToUpdate) {
+		clearTimeout(window.saveDelay);
+		window.saveDelay = setTimeout(function () {
+			saveText(cm.getValue());
+		}, 300);
+	}
+}
+
+function showSaved () {
+	if (window.localStorage.getItem("quickbin")) {
+		var list = "";
+		var arr = JSON.parse(window.localStorage.getItem("quickbin"));
+		arr.forEach(function (item) {
+			list += "<li><a href='/#!/note/" + item + "'>" + item + "</a></li>";
+		});
+		console.log(list);
+		$("#sidebar").html(list);
+	} else {
+		window.localStorage.setItem("quickbin", JSON.stringify([]));
+	}
+}
+
+function saveToLocal() {
+	if (window.location.hash.length < 2) return false;
+	var path = window.location.hash;
+	var arr = path.split("/");
+	if (arr.length !== 3) return false;
+
+	if (window.localStorage.getItem("quickbin")) {
+		var list = JSON.parse(window.localStorage.getItem("quickbin"));
+		if (list.indexOf(arr[2]) === -1) {
+			list.push(arr[2]);
+			$("#sidebar").append("<li><a href='/#!/note/" + arr[2] + "'>" + arr[2] + "</a></li>");
+			window.localStorage.setItem("quickbin", JSON.stringify(list));
+		}
+	} else {
+		window.localStorage.setItem("quickbin", JSON.stringify([arr[2]]));
+	}
+}
 
 /*
 var _gaq = _gaq || [];
