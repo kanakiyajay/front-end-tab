@@ -51,5 +51,6 @@ process.on("uncaughtException", function (err) {
 	console.log(err);
 });
 
-app.listen(3000);
-console.log("Listening on 3000");
+var port = process.env.PORT || 3000;
+app.listen(port);
+console.log("Listening on " + port);
