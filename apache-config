@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+	ServerAdmin kanakiyajay@yahoo.com
+	ServerName frontb.in
+	ProxyRequests off
+
+	<Location />
+		ProxyPass http://localhost:2233/
+		ProxyPassReverse  http://localhost:2233/
+	</Location>
+</VirtualHost>
