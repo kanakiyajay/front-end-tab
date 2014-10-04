@@ -22,28 +22,20 @@
 	<link rel="stylesheet" href="css/style.css">
 	-->
 	<link rel="stylesheet" href="css/minified.css">
-	<!-- Minified Files
-		<script src="js/jquery-2.1.0.min.js"></script>
-		<script src="js/jsl.parser.js"></script>
-		<script src="js/jsl.interactions.js"></script>
-		<script src="js/codemirror.js"></script>
-		<script src="js/css/css.js"></script>
-		<script src="js/xml/xml.js"></script>
-		<script src="js/htmlmixed/htmlmixed.js"></script>
-		<script src="js/javascript/javascript.js"></script>
-		<script src="js/script.js"></script>
-	-->
-	<!-- Loaded after respective button clicks
-		<script src="js/beautify.js"></script>
-		<script src="js/beautify-html.js"></script>
-		<script src="js/beautify-css.js"></script>
-		<script src="js/marked.min.js"></script>
-		<script src="js/minify.json.js"></script>
-		<script src="js/jshint.js"></script>
-	-->
 </head>
 <body>
 	<div class="container-fluid m-2t">
+		<div class="row">
+			<div class="col-xs-1"></div>
+			<div class="col-xs-10 m-t">
+				<div class="btn-toolbar">
+					<a href="/" title="New QuickBin" class="btn btn-default">New</a>
+					<button class="btn btn-default" id="save">Save</button>
+					<a href="#" target="_blank" class="btn btn-default pull-right share" id="twitter-share">Share on Twitter</a>
+					<a hre="#" target="_blank" class="btn btn-default pull-right share" id="fb-share">Share on Facebook</a>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-xs-1"></div>
 			<div class="col-xs-10 m-t" id="textarea-wrapper">
@@ -88,16 +80,35 @@
 					Made by <a href="http://jaykanakiya.com" title="Jay Kanakiya" target="_blank">Jay Kanakiya</a></a>
 				</div>
 				<div class="col-xs-4">
-					Open sourced on <a href="https://github.com/kanakiyajay/front-end-tab">Github</a>.
-					Follow me on <a href="http://twitter.com/techiejayk">twitter</a>
+					Open sourced on <a href="https://github.com/kanakiyajay/front-end-tab" title="Github Link of Front End Tab">Github</a>.
+					Follow me on <a href="http://twitter.com/techiejayk" title="techiejayk twitter">twitter</a>
 				</div>
-				<div class="col-xs-3">
-					<small><a href="http://jquer.in">JQuery plugins</a></small>
-					<small><a href="http://angular-js.in">Angular Directives</a></small>
+				<div class="col-xs-3 hide">
+					<small><a href="http://jquer.in" title="jQuery plugins">JQuery plugins</a></small>
+					<small><a href="http://angular-js.in" title="Angular Directives">Angular Directives</a></small>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- Minified Files
 	<script src="js/minified.js"></script>
+	-->
+		<script src="js/jquery-2.1.0.min.js"></script>
+		<script src="js/jsl.parser.js"></script>
+		<script src="js/jsl.interactions.js"></script>
+		<script src="js/codemirror.js"></script>
+		<script src="js/css/css.js"></script>
+		<script src="js/xml/xml.js"></script>
+		<script src="js/htmlmixed/htmlmixed.js"></script>
+		<script src="js/javascript/javascript.js"></script>
+		<script src="js/script.js"></script>
+	<!-- Loaded after respective button clicks
+		<script src="js/beautify.js"></script>
+		<script src="js/beautify-html.js"></script>
+		<script src="js/beautify-css.js"></script>
+		<script src="js/marked.min.js"></script>
+		<script src="js/minify.json.js"></script>
+		<script src="js/jshint.js"></script>
+	-->
 </body>
 </html>

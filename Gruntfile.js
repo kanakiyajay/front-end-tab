@@ -8,22 +8,22 @@ module.exports = function(grunt) {
 			},
 			basic_and_extras: {
 				files: {
-					"css/concat.css": ["css/bootstrap.btn.grid.css", "css/codemirror.css", "css/style.css"],
-					"js/concat.js": ["js/jquery-2.1.0.min.js", "js/jsl.parser.js", "js/jsl.interactions.js", "js/codemirror.js", "js/css/css.js", "js/xml/xml.js", "js/htmlmixed/htmlmixed.js", "js/javascript/javascript.js", "js/script.js"],
+					"public/css/concat.css": ["public/css/bootstrap.btn.grid.css", "public/css/codemirror.css", "public/css/style.css"],
+					"public/js/concat.js": ["public/js/jquery-2.1.0.min.js", "public/js/jsl.parser.js", "public/js/jsl.interactions.js", "public/js/codemirror.js", "public/js/css/css.js", "public/js/xml/xml.js", "public/js/htmlmixed/htmlmixed.js", "public/js/javascript/javascript.js", "public/js/script.js"],
 				}
 			}
 		},
 		uglify: {
 			my_target: {
 				files: {
-					"js/minified.js": ["js/concat.js"]
+					"public/js/minified.js": ["public/js/concat.js"]
 				}
 			}
 		},
 		cssmin: {
 			combine: {
 				files: {
-					"css/minified.css": ["css/concat.css"]
+					"public/css/minified.css": ["public/css/concat.css"]
 				}
 			}
 		}

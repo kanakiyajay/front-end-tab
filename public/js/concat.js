@@ -10042,6 +10042,7 @@ $(document).ready(function () {
 	window.$textarea = $("#beautify");
 	window.$results = $("#results");
 	window.loaded = {};
+	window.saveToUpdate = false;
 
 	var executeAfter = function ($btn, callback) {
 		var path = $btn.attr("data-require");
@@ -10159,8 +10160,103 @@ $(document).ready(function () {
 		});
 	});
 
+	$("#save").on("click", function () {
+		if (window.saveToUpdate) {
+			saveText(cm.getValue());
+		} else {
+			newText(cm.getValue());
+		}
+	});
+
+	$("#twitter-share").on("click", function () {
+		var shareLink = "https://twitter.com/home?status=Check%20out%20my%20new%20fastbin%20" + encodeURIComponent(window.location.href);
+		$(this).attr("href", shareLink);
+	});
+
+	$("#fb-share").on("click", function () {
+		var shareLink = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href);
+		$(this).attr("href", shareLink);
+	});
+
 	initCM();
+	getText();
 });
+
+function getText () {
+	if (window.location.hash.length < 2) return false;
+	var path = window.location.hash;
+	var arr = path.split("/");
+	if (arr.length !== 3) return false;
+	else {
+		$.ajax({
+			url: arr[1] + "/" + arr[2],
+			method: "get"
+		}).done(function (res, status) {
+			if (status === "success") {
+				window.saveToUpdate = true;
+				$("#save").text("Update");
+				$(".share").show();
+				cm.setValue(res.text);
+			} else {
+				alert(res.error || "Something went wrong");
+			}
+		}).fail(failAjax);
+	}
+}
+
+function saveText (text) {
+	if (window.location.hash.length < 2) return false;
+	var path = window.location.hash;
+	var arr = path.split("/");
+	if (arr.length !== 3) return false;
+	else {
+		$.ajax({
+			url: arr[1] + "/" + arr[2],
+			method: "post",
+			dataType: "json",
+			data: {
+				text: text
+			}
+		}).done(function (res, status) {
+			if (status === "success") {
+				window.saveToUpdate = true;
+				$(".share").show();
+			} else {
+				alert(res.error || "Something went wrong");
+			}
+		}).fail(failAjax);
+	}
+}
+
+function newText (text) {
+	$.ajax({
+		url: "/note",
+		method: "POST",
+		dataType: "json",
+		data: {
+			text: cm.getValue()
+		}
+	}).done(function (res, status) {
+		if (status === "success") {
+			changeState("#!/note/" + res._id);
+			$(".share").show();
+		} else {
+			alert(res.error || "Something went wrong");
+		}
+	}).fail(failAjax);
+}
+
+function failAjax (jqXHR, status, err) {
+	alert(err || "Something went wrong");
+}
+
+function changeState(path) {
+	if (typeof(window.history.pushState) == 'function') {
+		window.history.pushState(null, path, path);
+	} else {
+		window.location.hash = path;
+	}
+}
 
 function updateHtml() {
 	window.render = "html";
@@ -10223,6 +10319,7 @@ function initCM() {
 		}
 	});
 }
+
 
 /*
 var _gaq = _gaq || [];

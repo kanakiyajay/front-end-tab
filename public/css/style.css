@@ -67,7 +67,7 @@
 	margin-top: 20px;
 }
 
-#results, #render-wrapper {
+#results, #render-wrapper , .share{
 	display: none;
 }
 
