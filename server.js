@@ -1,4 +1,4 @@
-var bodyParser = require('body-parser')
+var bodyParser = require("body-parser");
 var express = require("express");
 var path = require("path");
 var db = require("./db.js");
@@ -41,7 +41,7 @@ app.use(function (err, req, res, next) {
 	console.log(err);
 	res.json({
 		"error": err || "Something Broke"
-	})
+	});
 });
 
 app.use(express.static("public"));
