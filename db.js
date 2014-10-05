@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var api = {};
 
-mongoose.connect("mongodb://localhost/test");
+mongoose.connect(process.env.MONGO_FRONTBIN || "mongodb://localhost/test");
 
 var noteSchema = mongoose.Schema({
 	text: { type: String, default: ""},
