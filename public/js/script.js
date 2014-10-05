@@ -266,7 +266,7 @@ function writeToPreview (value) {
 function updateMarkdown() {
 	window.render = "md";
 	window.sidebyside = true;
-	writeToPreview(value);
+	writeToPreview(cm.getValue());
 	setTimeout(updatePreview, 300);
 }
 

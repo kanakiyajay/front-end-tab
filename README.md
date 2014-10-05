@@ -1,9 +1,31 @@
-- Title: Front-End tab.
-- Desc: Daily tools for the front-end developer.
-- Demo: http://jaykanakiya.com/demos/front-end-tab/tab.html.
-- Blog Post: http://blog.jaykanakiya.com/the-front-end-tab/.
-- License: MIT License.
+# Frontb.in
 
-# Sources
+tldr; Every tool that a front-end developer or a web developer all in a slick single page MEAN Stack powered app. Here's is the [blog post](http://blog.jaykanakiya.com/the-front-end-tab/).
 
-- https://github.com/getify/JSON.minify
+## Check out the [demo](http://frontb.in)
+
+## Features
+
+- JSONlint
+- Remove whitespace from Json or any text.
+- Beautify javascript, css and html.
+- Jshint
+- Quick side-by-side view to edit and preview raw html.
+- Quick side-by-side view to edit and preview Markdown.
+- Encoder and Decoder.
+- Pastebin support for quick saving known as frontb.in
+- All previous bins are stored in localStorage and are accessible via Previous Tab
+
+## Roadmap
+
+[] Compress js, html, css.
+[] Design/UX Change
+[] Socket.io Support.
+
+## Installation
+
+Requires Node-js, MongoDB and some environment variables to run this in production.
+
+## License
+
+[MIT License](https://github.com/kanakiyajay/front-end-tab/blob/master/LICENSE)
