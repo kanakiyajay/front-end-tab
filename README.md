@@ -18,9 +18,9 @@ tldr; Every tool that a front-end developer or a web developer all in a slick si
 
 ## Roadmap
 
-[] Compress js, html, css.
-[] Design/UX Change
-[] Socket.io Support.
+- [ ] Compress js, html, css.
+- [ ] Design/UX Change
+- [ ] Socket.io Support.
 
 ## Installation
 
