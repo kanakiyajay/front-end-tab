@@ -10221,6 +10221,8 @@ function getText () {
 }
 
 function saveText (text) {
+	var nanobar = new Nanobar();
+	nanobar.go(30);
 	if (window.location.hash.length < 2) return false;
 	var path = window.location.hash;
 	var arr = path.split("/");
@@ -10234,6 +10236,7 @@ function saveText (text) {
 				text: text
 			}
 		}).done(function (res, status) {
+			nanobar.go(100);
 			if (status === "success") {
 				onSave();
 				saveToLocal();
@@ -10251,6 +10254,8 @@ function onSave () {
 }
 
 function newText (text) {
+	var nanobar = new Nanobar();
+	nanobar.go(30);
 	$.ajax({
 		url: "/note",
 		method: "POST",
@@ -10259,6 +10264,7 @@ function newText (text) {
 			text: cm.getValue()
 		}
 	}).done(function (res, status) {
+		nanobar.go(100);
 		if (status === "success") {
 			changeState("#!/note/" + res._id);
 			onSave();
