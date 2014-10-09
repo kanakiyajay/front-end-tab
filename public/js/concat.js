@@ -10047,9 +10047,12 @@ $(document).ready(function () {
 	var executeAfter = function ($btn, callback) {
 		var path = $btn.attr("data-require");
 		if (path && path.length && !window.loaded[path]) {
+			var nanobar = new Nanobar();
+			nanobar.go(30);
 			$.getScript("js/" + path).done(function () {
 				console.log("Script Loaded success: " + "js/" + path);
 				window.loaded[path] = true;
+				nanobar.go(100);
 				callback();
 			}).fail(function (jq) {
 				alert("Script was not loaded because" + jq);
@@ -10171,12 +10174,12 @@ $(document).ready(function () {
 	});
 
 	$("#twitter-share").on("click", function () {
-		var shareLink = "https://twitter.com/home?status=Check%20out%20my%20new%20fastbin%20" + encodeURIComponent(window.location.href);
+		var shareLink = "https://twitter.com/home?status=" + encodeURIComponent("Frontbin | jsonlint, jshint, pastebin, beautify js, markdown renderer, html renderer, dencoder all in one place ") + encodeURIComponent(window.location.href) + encodeURIComponent("?utm_source=twitter");
 		$(this).attr("href", shareLink);
 	});
 
 	$("#fb-share").on("click", function () {
-		var shareLink = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href);
+		var shareLink = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href) + encodeURIComponent("?utm_source=facebook");
 		$(this).attr("href", shareLink);
 	});
 
@@ -10191,6 +10194,7 @@ function init () {
 	initCM();
 	getText();
 	showSaved();
+	nanobar.go(100);
 	setTimeout(function () {
 		$(".share").hide();
 	}, 0);

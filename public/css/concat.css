@@ -319,6 +319,11 @@ div.CodeMirror-cursors {
 /* Help users use markselection to safely style text background */
 span.CodeMirror-selectedtext { background: none; }
 
+body {
+	background: url(../img/congruent_outline.png);
+}
+
+
 .json_input {
 	width: 100%;
 	height: 300px;
@@ -336,20 +341,14 @@ span.CodeMirror-selectedtext { background: none; }
 	padding: 0 !important;
 }
 
+.container-fluid .btn-default, #previous {
+	opacity: 0.9;
+}
+
 .json_input:focus {
 	border-color: transparent;
 	outline: none;
 	background-color: #EEEEEE;
-}
-
-.linedwrap {
-	margin-bottom: 10px;
-	background-color: #EEEEEE;
-	padding: 0;
-}
-
-.linedwrap .codelines {
-	padding: 0;
 }
 
 .light {
@@ -380,13 +379,18 @@ span.CodeMirror-selectedtext { background: none; }
 	border-color:#C6D880;
 }
 
+.m-st {
+	margin-top: 5px;
+}
+
 .m-t {
 	margin-top: 10px;
 }
 
-.m-2t {
-	margin-top: 20px;
+.m-3t {
+	margin-top: 25px;
 }
+
 
 #results, #render-wrapper , .share, #sidebar {
 	display: none;
@@ -399,11 +403,11 @@ span.CodeMirror-selectedtext { background: none; }
 	border: 1px solid #eee;
 }
 
-.footer {
+#footer {
 	bottom: 0;
 	position: fixed;
+	width: 100%;
 	opacity: 0.8;
-	margin-bottom: 10px;
 	background-color: rgba(255,255,255,0.5);
 }
 

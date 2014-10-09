@@ -19,12 +19,15 @@ tldr; Every tool that a front-end developer or a web developer all in a slick si
 ## Roadmap
 
 - [ ] Compress js, html, css.
-- [ ] Design/UX Change
+- [ x ] Design/UX Change
 - [ ] Socket.io Support.
+- [ ] Epoch Time converter
+- [ ] Show Unused variable jshint
 
 ## Installation
 
-Requires Node-js, MongoDB and some environment variables to run this in production.
+Can easily run locally without any server.
+Requires Node-js, MongoDB
 
 ## License
 
