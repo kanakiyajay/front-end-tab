@@ -19,7 +19,7 @@ tldr; Every tool that a front-end developer or a web developer all in a slick si
 ## Roadmap
 
 - [ ] Compress js, html, css.
-- [ x ] Design/UX Change
+- [x] Design/UX Change
 - [ ] Socket.io Support.
 - [ ] Epoch Time converter
 - [ ] Show Unused variable jshint

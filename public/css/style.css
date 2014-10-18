@@ -2,6 +2,9 @@ body {
 	background: url(../img/congruent_outline.png);
 }
 
+.btn-width {
+	width: 130px;
+}
 
 .json_input {
 	width: 100%;
@@ -86,8 +89,10 @@ body {
 	bottom: 0;
 	position: fixed;
 	width: 100%;
+}
+
+.bg-trans {
 	opacity: 0.8;
-	background-color: rgba(255,255,255,0.5);
 }
 
 #sidebar-wrapper {
@@ -115,8 +120,6 @@ body {
 }
 
 .CodeMirror-scroll {
-	overflow-y: hidden;
-	overflow-x: auto;
-	min-height: 20em;
-	max-height: 30em;
+	overflow-y: auto;
+	height: 25em;
 }

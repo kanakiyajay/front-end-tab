@@ -97,7 +97,7 @@ $(document).ready(function () {
 		var js = cm.getValue();
 		if (!js.length) return false;
 		try {
-			JSON.parse(js);
+			JSON.stringify(js);
 		} catch (e) {
 			var code = js.replace(/\s/g, "");
 			cm.setValue(code);
@@ -146,6 +146,24 @@ $(document).ready(function () {
 
 	$("#previous").on("click", function () {
 		$("#sidebar").toggle();
+	});
+
+	$("#jscompress").on("click", function () {
+		nanobar.go(30);
+		$.ajax({
+			method: "post",
+			url: "/note/jscompress",
+			data: {
+				code: cm.getValue()
+			}
+		}).done(function (res) {
+			nanobar.go(100);
+			if (res.error) {
+				alert(res.error || "Please try again, Something went wrong");
+			} else {
+				cm.setValue(res.code);
+			}
+		}).fail(failAjax);
 	});
 
 	init();
@@ -230,14 +248,14 @@ function newText (text) {
 			changeState("#!/note/" + res._id);
 			onSave();
 		} else {
-			alert(res.error || "Something went wrong");
+			alert(res.error || "Please try again, something went wrong");
 		}
 	}).fail(failAjax);
 }
 
 function failAjax (jqXHR, status, err) {
 	console.log(jqXHR, status, err);
-	alert(err || "Something went wrong");
+	alert(err || "Please try again, something went wrong");
 }
 
 function changeState(path) {
@@ -299,6 +317,8 @@ function initCM() {
 	window.cm = CodeMirror.fromTextArea(document.getElementById("beautify"), {
 		mode: "text/html",
 		lineNumbers: true,
+		lineWrapping: true,
+		cursorScrollMargin: true,
 		gutter: true,
 		viewportMargin: Infinity
 	});
@@ -324,11 +344,14 @@ function showSaved () {
 	if (window.localStorage.getItem("quickbin")) {
 		var list = "";
 		var arr = JSON.parse(window.localStorage.getItem("quickbin"));
-		arr.forEach(function (item) {
-			list += "<li><a href='/#!/note/" + item + "'>" + item + "</a></li>";
-		});
-		console.log(list);
-		$("#sidebar").html(list);
+		if (arr.length) {
+			arr.forEach(function (item) {
+				list += "<li><a href='/#!/note/" + item + "'>" + item + "</a></li>";
+			});
+			$("#sidebar").html(list);
+		} else {
+			$("#previous").hide();
+		}
 	} else {
 		window.localStorage.setItem("quickbin", JSON.stringify([]));
 	}
